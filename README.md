@@ -1,9 +1,6 @@
 # EXPERIMENT--03-SIMULATION-OF-PUSHBUTTON-AND-LED INTERFACE WITH ARM CONTROLLER AND PROTEUS 
-## Aim: 
-To Interface a Digital output (LED) and Digital input (Pushbutton) to ARM development board , and simulate it in Proteus 
-
-## Components required: 
-STM32 CUBE IDE, Proteus 8 simulator .
+## Aim: To Interface a Digital output (LED) and Digital input (Pushbutton) to ARM development board , and simulate it in Proteus 
+## Components required: STM32 CUBE IDE, Proteus 8 simulator .
 ## Theory 
 The full form of an ARM is an advanced reduced instruction set computer (RISC) machine, and it is a 32-bit processor architecture expanded by ARM holdings. The applications of an ARM processor include several microcontrollers as well as processors. The architecture of an ARM processor was licensed by many corporations for designing ARM processor-based SoC products and CPUs. This allows the corporations to manufacture their products using ARM architecture. Likewise, all main semiconductor companies will make ARM-based SOCs such as Samsung, Atmel, TI etc.
 
@@ -75,65 +72,50 @@ We are now at the last part of step by step guide on how to simulate STM32 proje
 
 ## STM 32 CUBE PROGRAM :
 ```
-
 #include "main.h"
-#include <stdbool.h>
-
+#include "stdbool.h"
+bool button;
+void blink_Led();
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-void push_button();
-bool button_status;
-
 int main(void)
 {
-
   HAL_Init();
-
   SystemClock_Config();
-
   MX_GPIO_Init();
-
-  void push_button()
-  {
-  	button_status = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4);
-  	if (button_status == 0)
-  	{
-  		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
-  		HAL_Delay(500);
-  	}
-  	else
-  	{
-  		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
-  		HAL_Delay(500);
-  	}
-  }
-  
   while (1)
   {
-	  push_button();
+	 blink_Led();
   }
 }
-
-#endif
-
+void blink_Led()
+{
+	button=HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_0);
+	if(button==0)
+	{
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+		HAL_Delay(1000);
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+		HAL_Delay(1000);
+	}
+	else
+	{
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+				HAL_Delay(1000);
+	}
+}
 ```
-
-
 ## Output screen shots of proteus  :
+### 1) LED ON:   
+![Screenshot 2024-04-04 150306](https://github.com/Saravana-kumar369/EXPERIMENT--03-SIMULATION-OF-PUSHBUTTON-AND-LED-WITH-PROTEUS-/assets/117925254/312c9160-76e9-40e5-9618-1e64af2bd575)
 
-### LED OFF
+### 2) LED OFF:
+![Screenshot 2024-04-04 150318](https://github.com/Saravana-kumar369/EXPERIMENT--03-SIMULATION-OF-PUSHBUTTON-AND-LED-WITH-PROTEUS-/assets/117925254/08eee8e1-98d6-4de3-a381-7de0380f2be9)
 
-![318071618-9b7ceec9-dfac-47e9-91da-389be442f9b8](https://github.com/Sangavi-suresh/EXPERIMENT--03-SIMULATION-OF-PUSHBUTTON-AND-LED-WITH-PROTEUS-/assets/118541861/430f61c4-8fda-44f6-a950-554e3a7b03c9)
-
-### LED ON
-
-![318071697-09021a83-98ab-4bc9-b853-a9526405e2b1](https://github.com/Sangavi-suresh/EXPERIMENT--03-SIMULATION-OF-PUSHBUTTON-AND-LED-WITH-PROTEUS-/assets/118541861/ac99a8ee-7598-4b72-bbd0-d16158d1ba66)
 
 ## Proteus layout(Add pdf screen shot of circuit here)
- 
- ![318071739-5ee30faa-59e4-4520-a288-34da3ef9a800](https://github.com/Sangavi-suresh/EXPERIMENT--03-SIMULATION-OF-PUSHBUTTON-AND-LED-WITH-PROTEUS-/assets/118541861/c3fc2126-88b9-4e7a-a1d6-3235c615e306)
+![image](https://github.com/Saravana-kumar369/EXPERIMENT--03-SIMULATION-OF-PUSHBUTTON-AND-LED-WITH-PROTEUS-/assets/117925254/9cc0e236-90fc-49dc-b31d-8fb37eb3342d)
 
- 
  
 ## Result :
 Interfacing a digital output and digital input  with ARM microcontroller are simulated in proteus and the results are verified.
